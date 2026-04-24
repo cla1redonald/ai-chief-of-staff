@@ -75,16 +75,37 @@ If the user shares items:
 
 If nothing: move on.
 
-### 4. Suggest today's focus
+### 4. Check recurring tasks
+
+Parse the `## Recurring` section in Tasks.md. Each item has a frequency prefix:
+- `weekly:` — due if not completed in the last 7 days
+- `fortnightly:` — due if not completed in the last 14 days
+- `monthly:` — due if not completed in the last 30 days
+
+For each recurring item that is due:
+- Check if it already exists in Quick Tasks (avoid duplicates)
+- If not, add it to Quick Tasks with today's date: `- [ ] {date} — {task name} (recurring: {frequency})`
+- Confirm: "Added 2 recurring items to Quick Tasks"
+
+If none are due, move on silently.
+
+### 5. Check blocked tasks
+
+Scan all tasks for the `→ blocked-by:` annotation. For each blocked task:
+- Check whether the blocking item has been completed (appears in Done) or no longer exists
+- If the blocker is resolved: **flag it** — "Unblocked: [task] — the blocker [blocker] is done. Ready to work on this?"
+- If still blocked: note it silently. Do NOT suggest blocked items for today's focus.
+
+### 6. Suggest today's focus
 
 Based on calendar gaps and task priorities, suggest:
-- **Deep Work block:** Which 1-2 Active items to progress today, and when (based on calendar gaps)
+- **Deep Work block:** Which 1-2 Active items to progress today, and when (based on calendar gaps). **Skip any items with unresolved `→ blocked-by:` annotations.**
 - **Quick wins:** Which Quick Tasks to knock off between meetings
 - **Skip today:** What can wait until tomorrow
 
 Keep suggestions to 3-5 items max. Don't overwhelm.
 
-### 5. Offer calendar blocking
+### 7. Offer calendar blocking
 
 Ask: **"Want me to block deep work time on your calendar?"**
 
@@ -94,7 +115,7 @@ If yes:
 - Description: Brief context from Tasks.md
 - Duration: suggest 90-120 min blocks
 
-### 6. Offer breakdown help
+### 8. Offer breakdown help
 
 Ask: **"Any of these feel too vague or too big? Want me to help break one down?"**
 

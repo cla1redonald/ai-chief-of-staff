@@ -47,7 +47,27 @@ Show Holding items. Ask:
 Flag any Quick Tasks older than 1 week. Ask:
 - "These have been sitting here a while — do them, delegate them, or kill them?"
 
-### 6. Capacity check
+### 6. Review: Recurring
+
+Show the `## Recurring` section. Ask:
+- "Any recurring items to add, change frequency, or remove?"
+- "Any that keep getting skipped? Maybe they don't belong here."
+
+Check if any recurring items were consistently completed or consistently ignored over the past few weeks (look at Done archives if available).
+
+### 7. Review: Dependencies
+
+Scan all tasks for `→ blocked-by:` annotations. Show a dependency view:
+
+**Blocked items:**
+- [task] → waiting on: [blocker] — still blocked / now unblocked
+
+For each:
+- If the blocker is in Done or no longer exists: "This is unblocked now. Promote to Active or keep in Holding?"
+- If blocked for >2 weeks: "This has been blocked for a while. Can you unblock it, or should we kill/reframe it?"
+- If a task is blocking multiple others: flag it as high-leverage — "Completing [blocker] would unblock 3 other items."
+
+### 8. Capacity check
 
 Reference the capacity-audit logic:
 - How many parallel streams are active?
@@ -56,13 +76,13 @@ Reference the capacity-audit logic:
 
 Be direct: "You have 12 things in flight. Your effective deep work hours are probably 10-15 per week after switching costs. That's 2-3 hours per item. Is that enough to make real progress?"
 
-### 7. Set next week's intentions
+### 9. Set next week's intentions
 
 Ask: "Which 3-5 things would make next week a success?"
 
 Update Active Deep Work accordingly (enforcing the cap).
 
-### 8. Archive Done
+### 10. Archive Done
 
 Create a weekly archive note at `02_Areas/Weekly_Reviews/Week_of_{date}.md` with:
 - Completed items
@@ -72,7 +92,7 @@ Create a weekly archive note at `02_Areas/Weekly_Reviews/Week_of_{date}.md` with
 
 Clear the Done section in Tasks.md.
 
-### 9. Offer calendar blocking
+### 11. Offer calendar blocking
 
 Show next week's calendar. Ask:
 - "Want me to block deep work time for your Active items?"

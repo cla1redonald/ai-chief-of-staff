@@ -29,6 +29,7 @@ Plus a task list template for Obsidian:
 ## Active Deep Work (max 5)    ← the hard cap
 ## Quick Tasks                  ← small stuff, do between meetings
 ## Holding                      ← big items waiting their turn
+## Recurring                    ← weekly/monthly items that auto-surface
 ## Done (this week)             ← cleared on weekly review
 ```
 
@@ -90,12 +91,37 @@ During day: /capture [x]    → zero friction capture (or Siri → Reminders)
 Friday/Sunday: /weekly-plan → review, archive, set next week's intentions
 ```
 
+### Recurring Tasks
+
+Add items to the `## Recurring` section with a frequency prefix:
+
+```markdown
+- [ ] weekly: Review job application pipeline
+- [ ] monthly: Review finances and runway
+- [ ] fortnightly: Catch up with mentor
+```
+
+`/daily-sync` checks each morning and auto-adds due items to Quick Tasks. `/weekly-plan` reviews whether recurring items are still relevant.
+
+### Task Dependencies
+
+Add `→ blocked-by: [thing]` to any task that can't start yet:
+
+```markdown
+- [ ] List house in June → blocked-by: decorator work
+- [ ] Submit application → blocked-by: CV review
+```
+
+`/daily-sync` skips blocked items when suggesting focus. When a blocker is completed, it flags newly unblocked items. `/weekly-plan` shows a dependency view and flags items blocked for >2 weeks.
+
 ### The Rules
 
 1. **Active Deep Work is capped at 5.** This is not a suggestion. The system enforces it.
 2. **New items land in Quick Tasks or Holding.** You earn your way into Active during `/daily-sync` or `/weekly-plan`.
 3. **Done gets cleared weekly.** Archived to a weekly review note.
 4. **Context switching tax is named directly.** 3-4 parallel streams = 20-30% overhead. 5+ = 40%+. The system will tell you.
+5. **Blocked tasks are skipped.** Don't suggest work that can't move. Surface it when the blocker resolves.
+6. **Recurring items auto-surface.** No manual re-entry for weekly/monthly tasks.
 
 ## Customisation
 
