@@ -10,11 +10,40 @@ Morning focus session. Read your tasks and calendar, decide what matters today.
 
 ## Process
 
-### 1. Read the current state
+### 1. Read the current state (run all in parallel)
+
+Kick off ALL of these at the same time — they're independent:
 
 - Read `02_Areas/Tasks.md` using `mcp__obsidian__read_note`
 - List today's calendar events using `mcp__claude_ai_Google_Calendar__list_events` (today's date, all calendars)
 - If this is the first run, also call `mcp__claude_ai_Google_Calendar__list_calendars` to identify which calendars are active
+- **Scan recent emails** — run 3 parallel `Bash` calls to read inbox in batches:
+
+```bash
+# Batch 1: messages 1-20
+osascript -e 'tell application "Mail"
+    set allSubjects to subject of (messages 1 through 20 of inbox)
+    set allSenders to sender of (messages 1 through 20 of inbox)
+    set allDates to date received of (messages 1 through 20 of inbox)
+    set output to ""
+    repeat with i from 1 to 20
+        set output to output & item i of allDates & " | " & item i of allSenders & " | " & item i of allSubjects & linefeed
+    end repeat
+    return output
+end tell'
+```
+
+```bash
+# Batch 2: messages 21-40
+# Same script but with (messages 21 through 40 of inbox)
+```
+
+```bash
+# Batch 3: messages 41-60
+# Same script but with (messages 41 through 60 of inbox)
+```
+
+Run all 3 email batches with `run_in_background: true` so they don't block the dashboard. Collect results when ready.
 
 ### 2. Show the dashboard
 
@@ -31,6 +60,15 @@ Present a concise summary:
 
 **Quick Tasks:**
 - List items, flag any that are time-sensitive (today/this week)
+
+**Email — needs attention:**
+- From the 60 scanned messages, filter by date (last 24 hours only)
+- Categorise into three buckets:
+  - **Action needed:** emails from real people that look like they need a reply or follow-up (recruiters, interview contacts, personal contacts, colleagues with direct requests)
+  - **AI/Tech digest:** newsletters and product updates about AI, tools, models — curate into a 3-5 bullet summary of what's worth knowing today
+  - **Skip:** marketing, promotions, automated reports, mailing lists, calendar syncs — don't show these
+- Only show the "Action needed" and "AI/Tech digest" buckets
+- For action items, ask: "Any of these need capturing to Tasks.md?"
 
 ### 3. Drain the Apple Reminders capture buffer
 
