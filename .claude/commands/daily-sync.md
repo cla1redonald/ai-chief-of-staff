@@ -17,7 +17,7 @@ Kick off ALL of these at the same time — they're independent:
 - Read `02_Areas/Tasks.md` using `mcp__obsidian__read_note`
 - List today's calendar events using `mcp__claude_ai_Google_Calendar__list_events` (today's date, all calendars)
 - If this is the first run, also call `mcp__claude_ai_Google_Calendar__list_calendars` to identify which calendars are active
-- **Scan recent emails** — run 3 parallel `Bash` calls to read inbox in batches:
+- **Scan recent emails** — run 4 parallel `Bash` calls to read inbox in batches of 20 (80 total — enough for a busy weekday):
 
 ```bash
 # Batch 1: messages 1-20
@@ -34,16 +34,12 @@ end tell'
 ```
 
 ```bash
-# Batch 2: messages 21-40
-# Same script but with (messages 21 through 40 of inbox)
-```
-
-```bash
+# Batch 2: messages 21-40 (same script, different range)
 # Batch 3: messages 41-60
-# Same script but with (messages 41 through 60 of inbox)
+# Batch 4: messages 61-80
 ```
 
-Run all 3 email batches with `run_in_background: true` so they don't block the dashboard. Collect results when ready.
+Run all 4 email batches with `run_in_background: true` so they don't block the dashboard. Collect results when ready. Stop early if the oldest message in a batch is already >24 hours old.
 
 ### 2. Show the dashboard
 
@@ -62,7 +58,7 @@ Present a concise summary:
 - List items, flag any that are time-sensitive (today/this week)
 
 **Email — needs attention:**
-- From the 60 scanned messages, filter by date (last 24 hours only)
+- From the 80 scanned messages, filter by date (last 24 hours only)
 - Categorise into three buckets:
   - **Action needed:** emails from real people that look like they need a reply or follow-up (recruiters, interview contacts, personal contacts, colleagues with direct requests)
   - **AI/Tech digest:** newsletters and product updates about AI, tools, models — curate into a 3-5 bullet summary of what's worth knowing today
